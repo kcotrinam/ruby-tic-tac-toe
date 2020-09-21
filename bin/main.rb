@@ -7,6 +7,7 @@ player2_name = ''
 player1_choice = ''
 player2_choice = ''
 answer = ''
+game_on = true
 
 def game_confirmation(answer, player1_name, player2_name)
   while (answer != 'y') && (answer != 'n')
@@ -15,6 +16,29 @@ def game_confirmation(answer, player1_name, player2_name)
     game_start(answer, player1_name, player2_name)
   end
 end
+
+
+def ask_choice(player1_name, player2_name)
+  # The game begins
+  puts 'The game begins...'
+  puts "#{player1_name} choose a square"
+  player1_choice = gets.chomp
+  # display_board
+  display_board
+  puts "#{player2_name} choose a square"
+  player2_choice = gets.chomp
+  display_board
+  # After 9 plays at the most
+end
+
+
+# while game_on
+#   # loop for each move
+#   ask_choice
+#   if winner # and/or draw (the exact condition in this milestone is not important)
+#     game_on = false
+#   end
+# end
 
 def explain_game
   puts "1. The game is played on a grid that's 3 squares by 3 squares."
@@ -41,16 +65,9 @@ def game_start(answer, player1_name, player2_name)
     # Play the game
     player1_name, player2_name = request_players_info
     explain_game
-    # The game begins
-    puts 'The game begins...'
-    puts "#{player1_name} choose a square"
-    player1_choice = gets.chomp
-    # display_board
-    display_board
-    puts "#{player2_name} choose a square"
-    player2_choice = gets.chomp
-    display_board
-    # After 9 plays at the most
+    
+    ask_choice(player1_name, player2_name)
+
     puts 'The final result is: '
     display_board
     puts 'The winner is...'
@@ -59,6 +76,8 @@ def game_start(answer, player1_name, player2_name)
     puts 'Goodbye!'
   end
 end
+
+
 
 def display_board
   board = [%w[_ _ _], %w[_ _ _], %w[_ _ _]]
