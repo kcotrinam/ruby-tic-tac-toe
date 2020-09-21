@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 # Ask for player names
 puts 'Welcome to our game: Tic Tac Toe'
 
@@ -62,7 +64,7 @@ def display_board
         puts board[i][j]
       else
         print board[i][j]
-      end 
+      end
     end
   end
 end
