@@ -7,12 +7,10 @@ player2_name = ''
 player1_choice = ''
 player2_choice = ''
 answer = ''
-def game_confirmation(answer, player1_name, player2_name)
-    puts 'Do you want to play? (Y/N)'
-    answer = gets.chomp.downcase
-    return answer
-    #game_start(answer, player1_name, player2_name)
 
+def game_confirmation(answer, player1_name, player2_name)
+  puts 'Do you want to play? (Y/N)'
+  answer = gets.chomp.downcase
 end
 
 def explain_game
@@ -38,54 +36,36 @@ end
 def winning_move(player1_choice)
   return false
 end
+
 def draw_move(player1_choice)
-  return true
+  return false
 end
+
 def valid_choice
   return true
 end
-
-
-
-puts "In here..."
-
-
-
 
 def game_start(answer, player1_name, player2_name)
   counter = 1
   puts 'The game begins...'
   while counter <= 3
-    if counter <= 3
-     until valid_choice do
-      if (winning_move(player1_choice))
-        puts "Congratulations, #{player1_name}, you won!"
-        # Display the board
-        # break
-      end
-      if (draw_move(player1_choice))
-        puts "It's a draw."
-        # Display the board
-        # break
-      end
-      puts "#{player1_name}, It's you turn choose a square"
-      player1_choice = gets.chomp
-     end
+    break unless counter <= 3
+
+    puts "#{player1_name}, It's you turn choose a square"
+    player1_choice = gets.chomp
+    # if player2_choice.validated?
     display_board
-    # until (valid_choice(player1_choice) && (winning_move || drawing_move)) do
+
     puts "#{player2_name}, It's you turn choose a square"
     player2_choice = gets.chomp
-    # end
+    # if player2_choice.validated?
     display_board
-      puts 'The final result is: '
-      display_board
-      puts 'The winner is...'
-      # play_again(answer, player1_name, player2_name)
-      counter += 1
-    else
-      break
-    end
+    counter += 1
   end
+  play_again(answer, player1_name, player2_name)
+  puts 'The final result is: '
+  display_board
+  puts 'The winner is...'
 end
 
 def display_board
@@ -112,15 +92,9 @@ def play_again(answer, player1_name, player2_name)
   end
 end
 
-# game_confirmation(answer, player1_name, player2_name)
-
 puts 'Welcome to our game: Tic Tac Toe'
 answer = game_confirmation(answer, player1_name, player2_name)
-
-while (answer != 'y') && (answer != 'n')
-  # puts "In here..."
-  answer = game_confirmation(answer, player1_name, player2_name)
-end
+answer = game_confirmation(answer, player1_name, player2_name) while (answer != 'y') && (answer != 'n')
 if answer == 'n'
   puts 'Goodbye!'
   return
@@ -128,6 +102,5 @@ end
 if answer == 'y'
   explain_game
   player1_name, player2_name = request_players_info
-  puts "Here in between"
   game_start(answer, player1_name, player2_name)
 end
