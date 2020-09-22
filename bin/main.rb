@@ -18,45 +18,55 @@ def game_confirmation(answer, player1_name, player2_name)
 end
 
 
-def ask_choice(player1_name, player2_name)
-  # The game begins
-  puts 'The game begins...'
-  puts "#{player1_name} choose a square"
-  player1_choice = gets.chomp
+def ask_choice(player, player1_name, player2_name)
+  if player == 1
+    puts "#{player1_name}, it is your turn. Choose a square"
+    player1_choice = gets.chomp
+    # We verify that the choice is valid
+    # verify_choice(player1_choice): it will return true or false
+    # if verify_choice(player1_choice) == true
+      # return player1_choice
+    # else
+      # we ask again
+  else
+    puts "#{player2_name}, it is your turn. Choose a square"
+    player2_choice = gets.chomp
+    # We verify that the choice is valid
+    # verify_choice(player2_choice): it will return true or false
+    # if verify_choice(player2_choice) == true
+      # return player2_choice
+    # else
+      # we ask again
+  end
   # display_board
-  display_board
-  puts "#{player2_name} choose a square"
-  player2_choice = gets.chomp
-  display_board
-  # After 9 plays at the most
+  # display_board
 end
 
 
 # while game_on
 #   # loop for each move
-#   ask_choice
+#      valid_choice = false
+#     # while valid_choice == false
+#     #   ask_choice
+      # the ask_choice function will return the choice
+      # if player == 1
+      #  player1_choice = ask_choice
+      # else
+      ## player2_choice = ask_choice
+#       end
 #   if winner # and/or draw (the exact condition in this milestone is not important)
 #     game_on = false
 #   end
 # end
 
-def explain_game
-  puts "1. The game is played on a grid that's 3 squares by 3 squares."
-  puts '2. You are X, your friend is O.'
-  puts '3. Players take turns putting their marks in empty squares.'
-  puts '4. The first player to get 3 of her marks in a row (up, down, across, or diagonally) is the winner.'
-  puts '5. When all 9 squares are full, the game is over.'
-end
+
 
 def request_players_info
   print 'Enter the name of player 1: '
   player1_name = gets.chomp
   print 'Enter the name of player 2: '
   player2_name = gets.chomp
-  puts 'The player who will start the game will be chosen randomly'
-  puts 'I am thinking...'
-  sleep(3)
-  puts rand(1..2) == 1 ? "#{player1_name} will start, with X!" : "#{player2_name} will start, with O!"
+
   return player1_name, player2_name
 end
 
@@ -65,8 +75,17 @@ def game_start(answer, player1_name, player2_name)
     # Play the game
     player1_name, player2_name = request_players_info
     explain_game
-    
-    ask_choice(player1_name, player2_name)
+    # This will decide who is going to start
+    puts 'The player who will start the game will be chosen randomly'
+    puts 'I am thinking...'
+    sleep(3)
+    player = rand(1..2)
+    puts player == 1 ? "#{player1_name} will start, with X!" : "#{player2_name} will start, with O!"
+    # The game begins
+    puts 'The game begins...'
+    # We need to tell each player that it is his/her turn
+
+    ask_choice(player, player1_name, player2_name)
 
     puts 'The final result is: '
     display_board
