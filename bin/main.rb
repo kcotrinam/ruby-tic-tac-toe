@@ -11,7 +11,7 @@ def player_turn(player, player1_name, player2_name)
   if player == 1
     puts "It's your turn #{player1_name}. Make a move..."
   else
-    puts "It's your turn #{player1_name}. Make a move..."
+    puts "It's your turn #{player2_name}. Make a move..."
   end
 end
 
@@ -20,7 +20,7 @@ def game_confirmation(answer)
     puts 'Do you want to play? (Y/N)'
     answer = gets.chomp.downcase
   end
-  (answer == 'y') ? true : false
+  answer == 'y'
 end
 
 def explain_game
@@ -60,14 +60,12 @@ def ask_choice(player, player1_name, player2_name)
       # we ask again
   end
   # display_board
-  # display_board
 end
-
 
 ## Here, the game starts
 puts 'Welcome to our game: Tic Tac Toe'
 game_confirmation
-if game_confirmation #If it's true, we start the game
+if game_confirmation # If it's true, we start the game
   # Here, we request for player's information
   player1_name, player2_name = request_players_info
   game_on = true
@@ -76,7 +74,7 @@ if game_confirmation #If it's true, we start the game
   # player2 = new player(player2_name)
 
 else # If game confirmation returns false (that is: if the user chose 'n'), we say good bye!
-  puts "good bye!..."
+  puts 'good bye!...'
   game_on = false
 end
 
@@ -84,7 +82,7 @@ explain_game
 player = rand(1..2)
 
 while game_on
-    valid_choice = false
+  valid_choice = false
   # until validate_choice == true
       # Tell player that it is his/her turn (call player_turn function)
       # player_turn(player, player1_name, player2_name)
