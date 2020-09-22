@@ -58,3 +58,5 @@ Layout/LineLength:
   Enabled: false
 Layout/CommentIndentation:
   Enabled: false
+Lint/UnusedMethodArgument:
+  Enabled: false
