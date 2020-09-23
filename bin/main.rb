@@ -4,8 +4,7 @@ require '../lib/logic_game.rb'
 
 player1_name = ''
 player2_name = ''
-player1_choice = ''
-player2_choice = ''
+
 answer = ''
 start = rand(1..2)
 
@@ -42,42 +41,49 @@ def draw_move(player1_choice)
   return false
 end
 
-def valid_choice
-  return true
+def choice_validator(player, choice, new_board)
+  while !player.sanitize_choice(choice)
+    puts "The choice is incorrect"
+    puts "#{player.player_name}, please choose an empty square, with a number between 1 and 9"
+    new_board.display
+    choice = gets.chomp.to_i
+  end
 end
 
-def game_start(answer, player1, player2, start, newBoard)
+def game_start(answer, player1, player2, start, new_board)
+
+  value1 = nil
   game_on = true
   counter = 1
   player1_name = player1.player_name
   player2_name = player2.player_name
-  puts 'The game begins...'
   while game_on
     game_on = false unless counter <= 3
     if start == 1
       puts "#{player1_name}, It's you turn choose a square"
-      player1_choice = gets.chomp
-      puts "In here... #{player1.sanitize_choice(player1_choice)}"
-      while !player1.sanitize_choice(player1_choice)
-        puts "The choice is incorrect"
-        puts "#{player1_name}, please choose an empty square, with a number between 1 and 9"
-        newBoard.display
-        player1_choice = gets.chomp
-      end
-      # if player2_choice.validated?
-      newBoard.display
+      player1_choice = gets.chomp.to_i
+      player1.sanitize_choice(player1_choice)
+      choice_validator(player1, player1_choice, new_board)
+    # end
+      new_board.display
       start = 2
     else
       puts "#{player2_name}, It's you turn choose a square"
       player2_choice = gets.chomp
+      while !player2.sanitize_choice(player2_choice)
+        puts "The choice is incorrect"
+        puts "#{player2_name}, please choose an empty square, with a number between 1 and 9"
+        new_board.display
+        player2_choice = gets.chomp.to_i
+      end
       # if player2_choice.validated?
-      newBoard.display
+      new_board.display
       start = 1
     end
     counter += 1
   end
   puts 'The final result is: '
-  newBoard.display
+  new_board.display
   puts 'The winner is...'
   play_again(answer, player1_name, player2_name)
 end
@@ -118,12 +124,12 @@ if answer == 'n'
   return
 end
 if answer == 'y'
-  newBoard = Board.new
+  new_board = Board.new
   explain_game
   player1 = Player.new()
   player1.player_movement = 'X'
   player2 = Player.new
   player2.player_movement = 'O'
   player1.player_name, player2.player_name = request_players_info(start)
-  game_start(answer, player1, player2, start, newBoard)
+  game_start(answer, player1, player2, start, new_board)
 end
