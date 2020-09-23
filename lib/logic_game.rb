@@ -4,6 +4,7 @@ class Board
     @rows = [%w[_ _ _], %w[_ _ _], %w[_ _ _]]
     @available_cells = 9
   end
+  puts @rows
 
   def display
     @rows.length.times do |i|
@@ -20,50 +21,48 @@ class Board
   def update(choice, token)
     case choice
       when 1
-        @rows[0][0] == token
+        @rows[0][0] = token
       when 2
-
-        @rows[0][1] == token
-        puts @rows[0][1]
+        @rows[0][1] = token
       when 3
-        @rows[0][2] == token
+        @rows[0][2] = token
       when 4
-        @rows[1][0] == token
+        @rows[1][0] = token
       when 5
-        @rows[1][1] == token
+        @rows[1][1] = token
       when 6
-        @rows[1][2] == token
+        @rows[1][2] = token
       when 7
-        @rows[2][0] == token
+        @rows[2][0] = token
       when 8
-        @rows[2][1] == token
+        @rows[2][1] = token
       when 9
-        @rows[2][2] == token
+        @rows[2][2] = token
       end
   end
 
   def valid_cell?(choice)
     case choice
-    when 1
-      @rows[0][0] == '_' ? true : false
-    when 2
-      @rows[0][1] == '_' ? true : false
-    when 3
-      @rows[0][2] == '_' ? true : false
-    when 4
-      @rows[1][0] == '_' ? true : false
-    when 5
-      @rows[1][1] == '_' ? true : false
-    when 6
-      @rows[1][2] == '_' ? true : false
-    when 7
-      @rows[2][0] == '_' ? true : false
-    when 8
-      @rows[2][1] == '_' ? true : false
-    when 9
-      @rows[2][2] == '_' ? true : false
-    else
-      false
+      when 1
+        @rows[0][0] == '_' ? true : false
+      when 2
+        @rows[0][1] == '_' ? true : false
+      when 3
+        @rows[0][2] == '_' ? true : false
+      when 4
+        @rows[1][0] == '_' ? true : false
+      when 5
+        @rows[1][1] == '_' ? true : false
+      when 6
+        @rows[1][2] == '_' ? true : false
+      when 7
+        @rows[2][0] == '_' ? true : false
+      when 8
+        @rows[2][1] == '_' ? true : false
+      when 9
+        @rows[2][2] == '_' ? true : false
+      else
+        false
     end
   end
 
@@ -103,18 +102,16 @@ end
 # end
 
 class Player
-  attr_reader :player_name, :player_movement
-  
-  def initialize(player_name, current_winner = false, player_movement)
+  attr_accessor :player_movement, :player_name
+
+  def initialize(player_name = '', current_winner = false, player_movement = '')
     @player_name = player_name
     @current_winner =current_winner
     @player_movement = player_movement
   end
 
-
-
  def sanitize_choice(choice)
-   ((choice.is_a? Integer) && ( (choice >= 1) && (choice <= 9))) ? choice : "You must enter an integer number between 1 and 9 as your choice"
+   (choice.is_a? Integer) &&  (choice >= 1) && (choice <= 9) ? true : false
  end
 
 end
@@ -123,3 +120,4 @@ new_game = Board.new
 player1 = Player.new("nicole", "X")
 new_game.update(2, "X")
 p new_game.display
+puts player1.sanitize_choice(30)
