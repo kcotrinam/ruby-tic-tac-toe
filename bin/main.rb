@@ -46,10 +46,11 @@ def valid_choice
 end
 
 def game_start(answer, player1_name, player2_name)
+  game_on = true
   counter = 1
   puts 'The game begins...'
-  while counter <= 3
-    break unless counter <= 3
+  while game_on
+    game_on = false unless counter <= 3
 
     puts "#{player1_name}, It's you turn choose a square"
     player1_choice = gets.chomp
@@ -62,10 +63,10 @@ def game_start(answer, player1_name, player2_name)
     display_board
     counter += 1
   end
-  play_again(answer, player1_name, player2_name)
   puts 'The final result is: '
   display_board
   puts 'The winner is...'
+  play_again(answer, player1_name, player2_name)
 end
 
 def display_board
@@ -85,10 +86,14 @@ end
 def play_again(answer, player1_name, player2_name)
   puts 'Do you want to play again? (Y/N)'
   new_game = gets.chomp.downcase
+  while new_game != 'y' && new_game != 'n'
+    puts "It's not a correct option, chose... (Y/N)"
+    new_game = gets.chomp.downcase
+  end
   if new_game == 'y'
     game_start(answer, player1_name, player2_name)
   else
-    p 'Good bye!'
+    puts 'See you next time!'
   end
 end
 
