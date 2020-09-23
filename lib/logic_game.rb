@@ -1,8 +1,7 @@
 class Board
-  attr_reader :rows
-  attr_accessor :available_cells
+  attr_accessor :available_cells, :rows
   def initialize
-    @rows = [%w[_ _ X], %w[X X _], %w[_ _ X]]
+    @rows = [%w[_ _ _], %w[_ _ _], %w[_ _ _]]
     @available_cells = 9
   end
 
@@ -18,8 +17,29 @@ class Board
     end
   end
 
-  def update()
-    puts @rows[0][1]
+  def update(choice, token)
+    case choice
+      when 1
+        @rows[0][0] == token
+      when 2
+
+        @rows[0][1] == token
+        puts @rows[0][1]
+      when 3
+        @rows[0][2] == token
+      when 4
+        @rows[1][0] == token
+      when 5
+        @rows[1][1] == token
+      when 6
+        @rows[1][2] == token
+      when 7
+        @rows[2][0] == token
+      when 8
+        @rows[2][1] == token
+      when 9
+        @rows[2][2] == token
+      end
   end
 
   def valid_cell?(choice)
@@ -72,12 +92,7 @@ class Board
   end
 end
 
-new_game = Board.new
-puts new_game.rows_match?
-puts new_game.diagonals_match?
-puts new_game.columns_match?
-puts new_game.win?
-puts new_game.valid_cell?(3)
+
 
 
 # modify rows, current_player, 8)
@@ -87,16 +102,24 @@ puts new_game.valid_cell?(3)
 
 # end
 
-=begin
-class ClassName
-  hassh = { player1: 'X', player2: 'O'}
-  def initialize(player_name)
-    @player_name
-    qcurrent_winner
+class Player
+  attr_reader :player_name, :player_movement
+  
+  def initialize(player_name, current_winner = false, player_movement)
+    @player_name = player_name
+    @current_winner =current_winner
+    @player_movement = player_movement
   end
-  def move(choice)
-  end
-  def winner
-  end
+
+
+
+ def sanitize_choice(choice)
+   ((choice.is_a? Integer) && ( (choice >= 1) && (choice <= 9))) ? choice : "You must enter an integer number between 1 and 9 as your choice"
+ end
+
 end
-=end
+
+new_game = Board.new
+player1 = Player.new("nicole", "X")
+new_game.update(2, "X")
+p new_game.display
