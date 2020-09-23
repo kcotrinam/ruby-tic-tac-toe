@@ -2,7 +2,7 @@ class Board
   attr_reader :rows
   attr_accessor :available_cells
   def initialize
-    @rows = [%w[_ _ _], %w[_ _ _], %w[_ _ _]]
+    @rows = [%w[_ _ X], %w[X X _], %w[_ _ X]]
     @available_cells = 9
   end
 
@@ -16,7 +16,6 @@ class Board
         end
       end
     end
-    puts ''
   end
 
   def update()
@@ -24,51 +23,61 @@ class Board
   end
 
   def valid_cell?(choice)
-    # 2
-    case choice.to_s
-    when '1'
+    case choice
+    when 1
       @rows[0][0] == '_' ? true : false
-    when '2'
+    when 2
       @rows[0][1] == '_' ? true : false
-    when '3'
+    when 3
       @rows[0][2] == '_' ? true : false
-    when '4'
+    when 4
       @rows[1][0] == '_' ? true : false
-    when '5'
+    when 5
       @rows[1][1] == '_' ? true : false
-    when '6'
+    when 6
       @rows[1][2] == '_' ? true : false
-    when '7'
+    when 7
       @rows[2][0] == '_' ? true : false
-    when '8'
+    when 8
       @rows[2][1] == '_' ? true : false
-    when '9'
+    when 9
       @rows[2][2] == '_' ? true : false
     else
       false
     end
   end
 
-  def rows_match?(player)
+  def rows_match?
+    result = []
     @rows.each do |row|
-      row.all?('X') || row.all?('O')
-      end
+      result.push(row.all?('X') || row.all?('O'))
     end
+    result.any?(true) ? true : false
   end
 
-  def diagonals_match?()
-    
+  def columns_match?
+    (@rows[0][0] == @rows[1][0] && @rows[1][0] == @rows[2][0]) || (@rows[0][1] == @rows[1][1] && @rows[1][1] == @rows[2][1]) || (@rows[0][2] == @rows[1][2] && @rows[1][2] == @rows[2][2]) ? true : false
+  end
+
+  def diagonals_match?
+      (@rows[0][0] == @rows[1][1] && @rows[1][1] == @rows[2][2]) || (@rows[0][2] == @rows[1][1] && @rows[1][1] == @rows[2][0]) ? true : false
   end
 
   def draw?()
-    
+    (rows_match? == false) && (columns_match? == false) && (diagonals_match? == false)  && (@available_cells == 0) ? true : false
+  end
+
+  def win?
+      (rows_match? == true) || (columns_match? == true) || (diagonals_match? == true) ? true : false
   end
 end
 
 new_game = Board.new
-p new_game.rows_match?
-
-
+puts new_game.rows_match?
+puts new_game.diagonals_match?
+puts new_game.columns_match?
+puts new_game.win?
+puts new_game.valid_cell?(3)
 
 
 # modify rows, current_player, 8)
@@ -78,6 +87,7 @@ p new_game.rows_match?
 
 # end
 
+=begin
 class ClassName
   hassh = { player1: 'X', player2: 'O'}
   def initialize(player_name)
@@ -86,11 +96,13 @@ class ClassName
   end
 
   def move(choice)
-    
+
   end
 
   def winner
-    
+
   end
 
 end
+=end
+
