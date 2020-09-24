@@ -113,6 +113,6 @@ class Player
   end
 
   def sanitize_choice(choice)
-     (choice.is_a? Integer) && (choice >= 1) && (choice <= 9) ? true : false
+    (choice.is_a? Integer) && (choice >= 1) && (choice <= 9) ? true : false
   end
 end

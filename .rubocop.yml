@@ -60,5 +60,3 @@ Layout/CommentIndentation:
   Enabled: false
 Lint/UnusedMethodArgument:
   Enabled: false
-Metrics/PerceivedComplexity:
-  Enable: false
