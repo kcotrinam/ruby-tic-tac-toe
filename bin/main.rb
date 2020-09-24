@@ -30,7 +30,7 @@ def request_players_info(start)
   return player1_name, player2_name
 end
 
-def win_or_draw? (board, player_name)
+def win_or_draw?(board, player_name)
   if board.win?
     puts "Hey, #{player_name}, you won!!!"
     return true
