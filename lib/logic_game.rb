@@ -81,15 +81,18 @@ class Board
     cond2 = []
     cond3 = []
     @rows.length.times do|i|
-      cond1.push(@rows[0][i])
-      cond2.push(@rows[1][i])
-      cond3.push(@rows[2][i])
+      cond1.push(@rows[i][0])
+      cond2.push(@rows[i][1])
+      cond3.push(@rows[i][2])
     end
-    if cond1.all?('O') || con1.all?('X')
+    puts cond1
+    # puts cond2
+    # puts cond3
+    if cond1.all?('O') || cond1.all?('X')
       true
-    elsif cond2.all?('O') || con2.all?('X')
+    elsif cond2.all?('O') || cond2.all?('X')
       true
-    elsif cond3.all?('O') || con3.all?('X')
+    elsif cond3.all?('O') || cond3.all?('X')
       true
     else
       false
