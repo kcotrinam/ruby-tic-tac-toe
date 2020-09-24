@@ -1,12 +1,9 @@
 #!/usr/bin/env ruby
 require '../lib/logic_game.rb'
 # Ask for player names
-
 player1_name = ''
 player2_name = ''
-
 answer = ''
-turn = rand(1..2)
 
 def game_confirmation(answer)
   puts 'Do you want to play? (Y/N)'
@@ -33,11 +30,14 @@ def request_players_info(start)
   return player1_name, player2_name
 end
 
-def winning_move(player_choice)
-  return false
-end
-
-def draw_move(player_choice)
+def win_or_draw? (board, player_name)
+  if board.win?
+    puts "Hey, #{player_name}, you won!!!"
+    return true
+  elsif board.draw?
+    puts "It's a draw!!!"
+    return true
+  end
   return false
 end
 
@@ -45,11 +45,23 @@ def choice_validator(player, choice, new_board)
   player.sanitize_choice(choice) && new_board.valid_cell?(choice) ? true : false
 end
 
+def init_game
+  turn = rand(1..2)
+  new_board = Board.new
+  explain_game
+  player1 = Player.new
+  player1.player_movement = 'X'
+  player2 = Player.new
+  player2.player_movement = 'O'
+  player1.name, player2.name = request_players_info(turn)
+  return new_board, player1, player2, turn
+end
+
 def game_start(answer, player1, player2, turn, new_board)
   game_on = true
   counter = 1
-  player1_name = player1.player_name
-  player2_name = player2.player_name
+  player1_name = player1.name
+  player2_name = player2.name
   while game_on
     game_on = false unless counter <= 9
     if turn == 1
@@ -57,53 +69,37 @@ def game_start(answer, player1, player2, turn, new_board)
       player_choice = gets.chomp.to_i
       if choice_validator(player1, player_choice, new_board)
         new_board.update(player_choice, 'X')
-        if new_board.win?
-          puts "Hey, #{player1_name}, you won!!!"
-          return
-        elsif new_board.draw?
-          puts "It's a draw!!!"
-          return
-        end
-        new_board.display
+        game_on = !win_or_draw?(new_board, player1.name)
       else
-        while !choice_validator(player1, player_choice, new_board)
-          puts "Not Correct!!!!!1 choose again"
+        until choice_validator(player1, player_choice, new_board)
+          puts 'Incorrect choice, please choose a number from 1 to 9: '
           player_choice = gets.chomp.to_i
           new_board.display
         end
         new_board.update(player_choice, 'X')
-        new_board.display
       end
+      new_board.display
       turn = 2
     else
       puts "#{player2_name}, it's you turn choose a square"
       player_choice = gets.chomp.to_i
       if choice_validator(player2, player_choice, new_board)
         new_board.update(player_choice, 'O')
-        if new_board.win?
-          puts "Hey, #{player2_name}, you won!!!"
-          break
-        elsif new_board.draw?
-          puts "It's a draw!!!"
-          break
-        end
-        new_board.display
+        game_on = !win_or_draw?(new_board, player2.name)
       else
-        while !choice_validator(player2, player_choice, new_board)
-          puts "Not Correct!!!!! choose again"
+        until choice_validator(player2, player_choice, new_board)
+          puts 'Incorrect choice, please choose a number from 1 to 9: '
           player_choice = gets.chomp.to_i
-          new_board.display
         end
         new_board.update(player_choice, 'O')
-        new_board.display
       end
+      new_board.display
       turn = 1
     end
     counter += 1
   end
   puts 'The final result is: '
   new_board.display
-  puts 'The winner is...'
   play_again(answer, player1_name, player2_name, turn)
 end
 
@@ -115,7 +111,8 @@ def play_again(answer, player1_name, player2_name, turn)
     new_game = gets.chomp.downcase
   end
   if new_game == 'y'
-    game_start(answer, player1_name, player2_name, turn)
+    new_board, player1, player2, turn = init_game
+    game_start(answer, player1, player2, turn, new_board)
   else
     puts 'See you next time!'
   end
@@ -129,12 +126,6 @@ if answer == 'n'
   return
 end
 if answer == 'y'
-  new_board = Board.new
-  explain_game
-  player1 = Player.new()
-  player1.player_movement = 'X'
-  player2 = Player.new
-  player2.player_movement = 'O'
-  player1.player_name, player2.player_name = request_players_info(turn)
+  new_board, player1, player2, turn = init_game
   game_start(answer, player1, player2, turn, new_board)
 end

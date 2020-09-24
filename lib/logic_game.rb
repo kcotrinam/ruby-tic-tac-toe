@@ -112,10 +112,10 @@ end
 # end
 
 class Player
-  attr_accessor :player_movement, :player_name
+  attr_accessor :player_movement, :name
 
-  def initialize(player_name = '', current_winner = false, player_movement = '')
-    @player_name = player_name
+  def initialize(name = '', current_winner = false, player_movement = '')
+    @name = name
     @current_winner =current_winner
     @player_movement = player_movement
   end
@@ -125,9 +125,3 @@ class Player
  end
 
 end
-
-# new_game = Board.new
-# player1 = Player.new("nicole", "X")
-# new_game.update(2, "X")
-# p new_game.display
-# puts player1.sanitize_choice(30)
