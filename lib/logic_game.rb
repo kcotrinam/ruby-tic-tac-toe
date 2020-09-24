@@ -80,14 +80,11 @@ class Board
     cond1 = []
     cond2 = []
     cond3 = []
-    @rows.length.times do|i|
+    @rows.length.times do |i|
       cond1.push(@rows[i][0])
       cond2.push(@rows[i][1])
       cond3.push(@rows[i][2])
     end
-    puts cond1
-    # puts cond2
-    # puts cond3
     if cond1.all?('O') || cond1.all?('X')
       true
     elsif cond2.all?('O') || cond2.all?('X')
@@ -102,20 +99,20 @@ class Board
   def diagonals_match?
     condition1 = []
     condition2 = []
-    @rows.length.times do |i| 
-     condition1.push(@rows[i][i])
-     condition2.push(@rows[i][2 - i])
+    @rows.length.times do |i|
+      condition1.push(@rows[i][i])
+      condition2.push(@rows[i][2 - i])
     end
-    if condition1.all?('O') || condition2.all?('O') 
-      true 
-    elsif condition1.all?('X') || condition2.all?('X') 
+    if condition1.all?('O') || condition2.all?('O')
+      true
+    elsif condition1.all?('X') || condition2.all?('X')
       true
     else
       false
     end
   end
 
-  def draw?()
+  def draw?
     if @available_cells <= 5
       (rows_match? == false) && (columns_match? == false) && (diagonals_match? == false) && @available_cells.zero? ? true : false
     else
