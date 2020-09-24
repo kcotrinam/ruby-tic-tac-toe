@@ -139,9 +139,16 @@ class Player
   end
 
   def sanitize_choice(choice)
-    if choice.is_a? Numeric
-      puts "Here!!!!!!!!!!!!"
-      (choice.is_a? Integer) && (choice >= 1) && (choice <= 9) ? true : false
+    puts "Choice.length is #{choice.length}"
+    for i in 0...choice.length
+      if choice[i].is_a? String
+        return false
+      end
+      i+=1
+    end
+    if (choice.to_f % choice.to_f) == 0.0
+      choice = choice.to_i
+      (choice >= 1) && (choice <= 9) ? true : false
     else
       return false
     end
