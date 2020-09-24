@@ -58,21 +58,16 @@ def init_game
 end
 
 def play(player, board, game_on, token)
-    puts "#{player.name}, it's you turn choose a square"
+  puts "#{player.name}, it's you turn choose a square"
+  choice = gets.chomp.to_i
+  until choice_validator(player, choice, board)
+    puts 'Incorrect choice, please choose a number from 1 to 9: '
     choice = gets.chomp.to_i
-    if choice_validator(player, choice, board)
-      board.update(choice, token)
-    else
-      until choice_validator(player, choice, board)
-        puts 'Incorrect choice, please choose a number from 1 to 9: '
-        choice = gets.chomp.to_i
-        board.display
-      end
-      board.update(choice, token)
-    end
-    game_on = !win_or_draw?(board, player.name)
     board.display
-    return game_on
+  end
+  board.update(choice, token)
+  board.display
+  return !win_or_draw?(board, player.name)
 end
 
 def game_start(answer, player1, player2, turn, new_board)
@@ -81,11 +76,11 @@ def game_start(answer, player1, player2, turn, new_board)
   player1_name = player1.name
   player2_name = player2.name
   while game_on && counter <= 9
-     if turn == 1
-      game_on = play(player1, new_board, game_on, "X")
+    if turn == 1
+      game_on = play(player1, new_board, game_on, 'X')
       turn = 2
     else
-     game_on = play(player2, new_board, game_on, "O")
+      game_on = play(player2, new_board, game_on, 'O')
       turn = 1
     end
     counter += 1
