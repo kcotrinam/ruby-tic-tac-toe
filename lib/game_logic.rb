@@ -54,7 +54,7 @@ class Board
     cond1 = []
     cond2 = []
     cond3 = []
-    @rows.length.times do |i|
+    3.times do |i|
       cond1.push(@rows[i][0])
       cond2.push(@rows[i][1])
       cond3.push(@rows[i][2])
