@@ -16,9 +16,11 @@ class Board
         end
       end
     end
+    puts ''
   end
 
   def update(choice, token)
+    @available_cells -= 1
     case choice
       when 1
         @rows[0][0] = token
@@ -71,11 +73,11 @@ class Board
     @rows.each do |row|
       result.push(row.all?('X') || row.all?('O'))
     end
-    result.any?(true) ? true : false
+      result.any?(true) ? true : false
   end
 
   def columns_match?
-    (@rows[0][0] == @rows[1][0] && @rows[1][0] == @rows[2][0]) || (@rows[0][1] == @rows[1][1] && @rows[1][1] == @rows[2][1]) || (@rows[0][2] == @rows[1][2] && @rows[1][2] == @rows[2][2]) ? true : false
+      (@rows[0][0] == @rows[1][0] && @rows[1][0] == @rows[2][0]) || (@rows[0][1] == @rows[1][1] && @rows[1][1] == @rows[2][1]) || (@rows[0][2] == @rows[1][2] && @rows[1][2] == @rows[2][2]) ? true : false
   end
 
   def diagonals_match?
@@ -83,11 +85,19 @@ class Board
   end
 
   def draw?()
-    (rows_match? == false) && (columns_match? == false) && (diagonals_match? == false)  && (@available_cells == 0) ? true : false
+    if @available_cells <= 5
+      (rows_match? == false) && (columns_match? == false) && (diagonals_match? == false)  && (@available_cells == 0) ? true : false
+    else
+      false
+    end
   end
 
   def win?
-      (rows_match? == true) || (columns_match? == true) || (diagonals_match? == true) ? true : false
+    if @available_cells <= 5
+        (rows_match? == true) || (columns_match? == true) || (diagonals_match? == true) ? true : false
+    else
+      false
+    end
   end
 end
 
@@ -116,8 +126,8 @@ class Player
 
 end
 
-new_game = Board.new
-player1 = Player.new("nicole", "X")
-new_game.update(2, "X")
-p new_game.display
-puts player1.sanitize_choice(30)
+# new_game = Board.new
+# player1 = Player.new("nicole", "X")
+# new_game.update(2, "X")
+# p new_game.display
+# puts player1.sanitize_choice(30)
