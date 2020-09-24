@@ -46,8 +46,6 @@ def choice_validator(player, choice, new_board)
 end
 
 def game_start(answer, player1, player2, turn, new_board)
-
-  value1 = nil
   game_on = true
   counter = 1
   player1_name = player1.player_name
@@ -63,7 +61,7 @@ def game_start(answer, player1, player2, turn, new_board)
           puts "Hey, #{player1_name}, you won!!!"
           return
         elsif new_board.draw?
-          puts "Hey, #{player1_name}, it's a draw!!!"
+          puts "It's a draw!!!"
           return
         end
         new_board.display
@@ -81,13 +79,13 @@ def game_start(answer, player1, player2, turn, new_board)
       puts "#{player2_name}, it's you turn choose a square"
       player_choice = gets.chomp.to_i
       if choice_validator(player2, player_choice, new_board)
-        new_board.update(player_choice,'O')
+        new_board.update(player_choice, 'O')
         if new_board.win?
-          puts "Hey, #{player1_name}, you won!!!"
-          return
+          puts "Hey, #{player2_name}, you won!!!"
+          break
         elsif new_board.draw?
-          puts "Hey, #{player1_name}, it's a draw!!!"
-          return
+          puts "It's a draw!!!"
+          break
         end
         new_board.display
       else
