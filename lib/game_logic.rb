@@ -21,48 +21,22 @@ class Board
 
   def update(choice, token)
     @available_cells -= 1
-    case choice
-    when 1
-      @rows[0][0] = token
-    when 2
-      @rows[0][1] = token
-    when 3
-      @rows[0][2] = token
-    when 4
-      @rows[1][0] = token
-    when 5
-      @rows[1][1] = token
-    when 6
-      @rows[1][2] = token
-    when 7
-      @rows[2][0] = token
-    when 8
-      @rows[2][1] = token
-    when 9
-      @rows[2][2] = token
+    if choice <= 3
+      @rows[0][choice - 1] = token
+    elsif choice <= 6
+      @rows[1][choice - 4] = token
+    else
+      @rows[2][choice - 7] = token
     end
   end
 
   def valid_cell?(choice)
-    case choice
-    when 1
-      @rows[0][0] == '_'
-    when 2
-      @rows[0][1] == '_'
-    when 3
-      @rows[0][2] == '_'
-    when 4
-      @rows[1][0] == '_'
-    when 5
-      @rows[1][1] == '_'
-    when 6
-      @rows[1][2] == '_'
-    when 7
-      @rows[2][0] == '_'
-    when 8
-      @rows[2][1] == '_'
-    when 9
-      @rows[2][2] == '_'
+    if choice <= 3
+      @rows[0][choice - 1] == '_'
+    elsif choice <= 6
+      @rows[1][choice - 4] == '_'
+    elsif choice <= 9
+      @rows[2][choice - 7] == '_'
     else
       false
     end
@@ -139,18 +113,6 @@ class Player
   end
 
   def sanitize_choice(choice)
-    puts "Choice.length is #{choice.length}"
-    for i in 0...choice.length
-      if choice[i].is_a? String
-        return false
-      end
-      i+=1
-    end
-    if (choice.to_f % choice.to_f) == 0.0
-      choice = choice.to_i
-      (choice >= 1) && (choice <= 9) ? true : false
-    else
-      return false
-    end
+     (choice.is_a? Integer) && (choice >= 1) && (choice <= 9) ? true : false
   end
 end
