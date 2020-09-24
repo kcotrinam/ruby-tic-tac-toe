@@ -42,19 +42,7 @@ def draw_move(player1_choice)
 end
 
 def choice_validator(player, choice, new_board)
-  while !player.sanitize_choice(choice)
-    puts "The choice is incorrect."
-    puts "#{player.player_name}, please choose an empty square, with a number between 1 and 9"
-    new_board.display
-    choice = gets.chomp.to_i
-  end
-  while !new_board.valid_cell?(choice)
-    puts "The choice is incorrect. The cell is not empty."
-    puts "#{player.player_name}, please choose an empty square, with a number between 1 and 9"
-    new_board.display
-    choice = gets.chomp.to_i
-  end
-  (player.sanitize_choice(choice) && new_board.valid_cell?(choice)) ? true : false
+  player.sanitize_choice(choice) && new_board.valid_cell?(choice) ? true : false
 end
 
 def game_start(answer, player1, player2, turn, new_board)
@@ -69,28 +57,30 @@ def game_start(answer, player1, player2, turn, new_board)
     if turn == 1
       puts "#{player1_name}, It's you turn choose a square"
       player1_choice = gets.chomp.to_i
-      choice_validator(player1, player1_choice, new_board)
-      if ((player1.sanitize_choice(player1_choice) && new_board.valid_cell?(player1_choice)) ? true : false)
-        puts "Inside p1 if..."
-        new_board.update(player1_choice,'X')
+      if choice_validator(player1, player1_choice, new_board)
+        new_board.update(player1_choice, 'X')
+        new_board.display
+        turn = 2
+      else
+        while !choice_validator(player1, player1_choice, new_board)
+          puts "Not Correct!!!!!1 choose again"
+          player1_choice = gets.chomp.to_i
+          new_board.display
+        end
+        new_board.update(player1_choice, 'X')
+        # player1_choice = gets.chomp.to_i
+        new_board.display
+        turn = 2
       end
-      new_board.display
-      turn = 2
     else
       puts "#{player2_name}, It's you turn choose a square"
       player2_choice = gets.chomp.to_i
       choice_validator(player2, player2_choice, new_board)
       if ((player1.sanitize_choice(player2_choice) && new_board.valid_cell?(player2_choice)) ? true : false)
-        puts "!!!!!!!!!!!!!!!!!!!!!!"
         puts choice_validator(player2, player2_choice, new_board)
-        puts "The board before is..."
-        new_board.display
         new_board.update(player2_choice,'O')
-        puts "The board after is..."
         new_board.display
-        puts "====================="
       end
-      new_board.display
       turn = 1
     end
     counter += 1
@@ -100,22 +90,6 @@ def game_start(answer, player1, player2, turn, new_board)
   puts 'The winner is...'
   play_again(answer, player1_name, player2_name)
 end
-
-=begin
-def display_board
-  board = [%w[_ _ _], %w[_ _ _], %w[_ _ _]]
-  board.length.times do |i|
-    board[i].length.times do |j|
-      if j == 2
-        puts board[i][j]
-      else
-        print board[i][j] + ' '
-      end
-    end
-  end
-  puts ''
-end
-=end
 
 def play_again(answer, player1_name, player2_name)
   puts 'Do you want to play again? (Y/N)'
