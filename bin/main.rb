@@ -58,11 +58,10 @@ end
 
 def play(player, board, game_on, token)
   puts "#{player.name}, it's you turn choose a square"
-  choice = gets.chomp
-  puts "choice is: #{choice.to_f}, choice.is_a?: #{choice.is_a? Integer}, choice.class is: #{choice.class}"
+  choice = gets.chomp.to_i
   until choice_validator(player, choice, board)
     puts 'Incorrect choice, please choose a number from 1 to 9: '
-    choice = gets.chomp
+    choice = gets.chomp.to_i
     board.display
   end
   board.update(choice, token)
