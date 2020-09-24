@@ -1,10 +1,9 @@
 #!/usr/bin/env ruby
-require '../lib/logic_game.rb'
+require '../lib/game_logic.rb'
 # Ask for player names
 player1_name = ''
 player2_name = ''
 answer = ''
-
 def game_confirmation(answer)
   puts 'Do you want to play? (Y/N)'
   answer = gets.chomp.downcase
@@ -59,10 +58,11 @@ end
 
 def play(player, board, game_on, token)
   puts "#{player.name}, it's you turn choose a square"
-  choice = gets.chomp.to_i
+  choice = gets
+  puts "choice is: #{choice}, choice.is_a?: #{choice.is_a? Integer}, choice.class is: #{choice.class}"
   until choice_validator(player, choice, board)
     puts 'Incorrect choice, please choose a number from 1 to 9: '
-    choice = gets.chomp.to_i
+    choice = gets
     board.display
   end
   board.update(choice, token)
