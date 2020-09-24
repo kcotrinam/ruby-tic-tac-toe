@@ -77,11 +77,39 @@ class Board
   end
 
   def columns_match?
-    (@rows[0][0] == @rows[1][0] && @rows[1][0] == @rows[2][0]) || (@rows[0][1] == @rows[1][1] && @rows[1][1] == @rows[2][1]) || (@rows[0][2] == @rows[1][2] && @rows[1][2] == @rows[2][2]) ? true : false
+    cond1 = []
+    cond2 = []
+    cond3 = []
+    @rows.length.times do|i|
+      cond1.push(@rows[0][i])
+      cond2.push(@rows[1][i])
+      cond3.push(@rows[2][i])
+    end
+    if cond1.all?('O') || con1.all?('X')
+      true
+    elsif cond2.all?('O') || con2.all?('X')
+      true
+    elsif cond3.all?('O') || con3.all?('X')
+      true
+    else
+      false
+    end
   end
 
   def diagonals_match?
-    (@rows[0][0] == @rows[1][1] && @rows[1][1] == @rows[2][2]) || (@rows[0][2] == @rows[1][1] && @rows[1][1] == @rows[2][0]) ? true : false
+    condition1 = []
+    condition2 = []
+    @rows.length.times do |i| 
+     condition1.push(@rows[i][i])
+     condition2.push(@rows[i][2 - i])
+    end
+    if condition1.all?('O') || condition2.all?('O') 
+      true 
+    elsif condition1.all?('X') || condition2.all?('X') 
+      true
+    else
+      false
+    end
   end
 
   def draw?()
