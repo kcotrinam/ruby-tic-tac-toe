@@ -51,21 +51,15 @@ class Board
   end
 
   def columns_match?
-    cond1, cond2, cond3 = [], [], []
+    cond1 = []
+    cond2 = []
+    cond3 = []
     @rows.length.times do |i|
       cond1.push(@rows[i][0])
       cond2.push(@rows[i][1])
       cond3.push(@rows[i][2])
     end
-    if cond1.all?('O') || cond1.all?('X')
-      true
-    elsif cond2.all?('O') || cond2.all?('X')
-      true
-    elsif cond3.all?('O') || cond3.all?('X')
-      true
-    else
-      false
-    end
+    cond1.all?('O') || cond1.all?('X') || cond2.all?('O') || cond2.all?('X') || cond3.all?('O') || cond3.all?('X') ? true : false
   end
 
   def diagonals_match?

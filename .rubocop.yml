@@ -54,8 +54,6 @@ Style/RedundantReturn:
   Enabled: false
 Style/BlockComments:
   Enabled: false
-Layout/LineLength:
-  Enabled: false
 Layout/CommentIndentation:
   Enabled: false
 Lint/UnusedMethodArgument:
