@@ -57,6 +57,25 @@ def init_game
   return new_board, player1, player2, turn
 end
 
+def play(player, board, game_on)
+  # if turn == 1
+    puts "#{player.name}, it's you turn choose a square"
+    choice = gets.chomp.to_i
+    if choice_validator(player, choice, board)
+      new_board.update(choice, 'X')
+      game_on = !win_or_draw?(board, player.name)
+    else
+      until choice_validator(player, choice, board)
+        puts 'Incorrect choice, please choose a number from 1 to 9: '
+        choice = gets.chomp.to_i
+        board.display
+      end
+      board.update(choice, 'X')
+    end
+    board.display
+    return game_on
+end
+
 def game_start(answer, player1, player2, turn, new_board)
   game_on = true
   counter = 1
@@ -64,39 +83,43 @@ def game_start(answer, player1, player2, turn, new_board)
   player2_name = player2.name
   while game_on
     game_on = false unless counter <= 9
-    if turn == 1
-      puts "#{player1_name}, it's you turn choose a square"
-      player_choice = gets.chomp.to_i
-      if choice_validator(player1, player_choice, new_board)
-        new_board.update(player_choice, 'X')
-        game_on = !win_or_draw?(new_board, player1.name)
-      else
-        until choice_validator(player1, player_choice, new_board)
-          puts 'Incorrect choice, please choose a number from 1 to 9: '
-          player_choice = gets.chomp.to_i
-          new_board.display
-        end
-        new_board.update(player_choice, 'X')
-      end
-      new_board.display
+
+    play(player1, new_board, turn, game_on)
+     if turn == 1
+      plau()
+    #   puts "#{player1_name}, it's you turn choose a square"
+    #   player_choice = gets.chomp.to_i
+    #   if choice_validator(player1, player_choice, new_board)
+    #     new_board.update(player_choice, 'X')
+    #     game_on = !win_or_draw?(new_board, player1.name)
+      #  else
+    #     until choice_validator(player1, player_choice, new_board)
+    #       puts 'Incorrect choice, please choose a number from 1 to 9: '
+    #       player_choice = gets.chomp.to_i
+    #       new_board.display
+    #     end
+    #     new_board.update(player_choice, 'X')
+      #  end
+    #   new_board.display
       turn = 2
     else
-      puts "#{player2_name}, it's you turn choose a square"
-      player_choice = gets.chomp.to_i
-      if choice_validator(player2, player_choice, new_board)
-        new_board.update(player_choice, 'O')
-        game_on = !win_or_draw?(new_board, player2.name)
-      else
-        until choice_validator(player2, player_choice, new_board)
-          puts 'Incorrect choice, please choose a number from 1 to 9: '
-          player_choice = gets.chomp.to_i
-        end
-        new_board.update(player_choice, 'O')
-      end
-      new_board.display
+      play()
+    #   puts "#{player2_name}, it's you turn choose a square"
+    #   player_choice = gets.chomp.to_i
+    #   if choice_validator(player2, player_choice, new_board)
+    #     new_board.update(player_choice, 'O')
+    #     game_on = !win_or_draw?(new_board, player2.name)
+    #   else
+    #     until choice_validator(player2, player_choice, new_board)
+    #       puts 'Incorrect choice, please choose a number from 1 to 9: '
+    #       player_choice = gets.chomp.to_i
+    #     end
+    #     new_board.update(player_choice, 'O')
+    #   end
+    #   new_board.display
       turn = 1
-    end
-    counter += 1
+    # end
+    # counter += 1
   end
   puts 'The final result is: '
   new_board.display
