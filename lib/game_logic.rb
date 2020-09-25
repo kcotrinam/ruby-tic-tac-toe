@@ -51,15 +51,25 @@ class Board
   end
 
   def columns_match?
+    result = []
+    win_case = []
     cond1 = []
     cond2 = []
     cond3 = []
+    win_case.push(cond1, cond2, cond3)
     3.times do |i|
       cond1.push(@rows[i][0])
       cond2.push(@rows[i][1])
       cond3.push(@rows[i][2])
     end
-    cond1.all?('O') || cond1.all?('X') || cond2.all?('O') || cond2.all?('X') || cond3.all?('O') || cond3.all?('X') ? true : false
+    win_case.each do |el|
+      if el.all?('O')
+      result.push(el.all?('O'))
+      elsif el.all?('X')
+      result.push(el.all?('X')) 
+      end
+    end 
+    result.any?(true)
   end
 
   def diagonals_match?
