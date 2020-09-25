@@ -119,6 +119,7 @@ class Player
 
   def sanitize_choice(choice)
     return false unless choice.length == 1
+
     choice = choice.to_i
     (choice != 0) && (choice >= 1) && (choice <= 9) ? true : false
   end
