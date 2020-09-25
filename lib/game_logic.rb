@@ -64,11 +64,11 @@ class Board
     end
     win_case.each do |el|
       if el.all?('O')
-      result.push(el.all?('O'))
+        result.push(el.all?('O'))
       elsif el.all?('X')
-      result.push(el.all?('X')) 
+        result.push(el.all?('X'))
       end
-    end 
+    end
     result.any?(true)
   end
 
