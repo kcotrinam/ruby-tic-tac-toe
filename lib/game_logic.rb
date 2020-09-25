@@ -1,5 +1,6 @@
 class Board
-  attr_accessor :available_cells, :rows
+  attr_accessor :rows
+  attr_reader :available_cells
   def initialize
     @rows = [%w[_ _ _], %w[_ _ _], %w[_ _ _]]
     @available_cells = 9

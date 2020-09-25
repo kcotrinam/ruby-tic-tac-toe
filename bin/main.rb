@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
-require '../lib/game_logic.rb'
-# Ask for player names
+require_relative '../lib/game_logic.rb'
 player1_name = ''
 player2_name = ''
 answer = ''
