@@ -21,6 +21,7 @@ class Board
   end
 
   def update(choice, token)
+    choice = choice.to_i
     @available_cells -= 1
     if choice <= 3
       @rows[0][choice - 1] = token
@@ -32,6 +33,7 @@ class Board
   end
 
   def valid_cell?(choice)
+    choice = choice.to_i
     if choice <= 3
       @rows[0][choice - 1] == '_'
     elsif choice <= 6
@@ -116,6 +118,8 @@ class Player
   end
 
   def sanitize_choice(choice)
-    (choice.is_a? Integer) && (choice >= 1) && (choice <= 9) ? true : false
+    return false unless choice.length == 1
+    choice = choice.to_i
+    (choice != 0) && (choice >= 1) && (choice <= 9) ? true : false
   end
 end
