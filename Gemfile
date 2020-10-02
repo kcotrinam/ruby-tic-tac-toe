@@ -1,3 +1,2 @@
-require 'bundler'
-gem 'rubocop', '~>0.81.0'
-source 'https://rubygems.org'
+# gem for linter
+gem 'rubocop', '~> 0.77.0', require: false
