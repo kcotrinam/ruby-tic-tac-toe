@@ -1,9 +1,24 @@
-require_relative '../lib/game_logic'
+require_relative '../lib/board'
 
 describe Board do
   let(:board) { Board.new }
 
+  describe '#display' do
+    it 'Should print the board' do
+      expect do
+        board.display
+      end.to output("_ _ _\n_ _ _\n_ _ _\n\n").to_stdout
+    end
+  end
+
   describe '#update' do
+    it 'When choice is 9 and token O, square 9 can not be X' do
+      expect do
+        board.update('2', 'O')
+        expect(board.update[2][2]).not_to eql('X')
+      end
+    end
+
     it 'When choice is 1 and token X' do
       expect do
         board.update('1', 'X')
@@ -18,7 +33,7 @@ describe Board do
       end
     end
 
-    it 'When choice is 2 and token X' do
+    it 'When choice is 2 and token X, square 2 can not be O' do
       expect do
         board.update('2', 'X')
         expect(board.update[0][1]).not_to eql('O')
@@ -170,36 +185,6 @@ describe Board do
         board.update('5', 'X')
         board.update('9', 'X')
         expect(board.win?).be_true
-      end
-    end
-  end
-end
-
-describe Player do
-  let(:player) { Player.new("#{name}.to_s") }
-  describe '#sanitize_choice' do
-    it 'Should return the instance of player' do
-      expect do
-        new_player = Player.new('Mark')
-        expect(new_player.name).to eql('Mark')
-      end
-    end
-
-    it 'It returns false if the choice length is different of 1' do
-      expect do
-        expect(player.sanitize_choice('12')).be_false
-      end
-    end
-
-    it 'It returns false if choice is not between 1 and 9' do
-      expect do
-        expect(player.sanitize_choice('11')).be_false
-      end
-    end
-
-    it 'It returns true if choice is between 1 and 9' do
-      expect do
-        expect(player.sanitize_choice('4')).be_true
       end
     end
   end
