@@ -199,7 +199,7 @@ describe Player do
 
     it 'It returns true if choice is between 1 and 9' do
       expect do
-        expect(player.sanitize_choice('5')).be_true
+        expect(player.sanitize_choice('4')).be_true
       end
     end
   end
