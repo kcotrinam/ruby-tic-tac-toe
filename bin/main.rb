@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
-require_relative '../lib/game_logic.rb'
+require_relative '../lib/board.rb'
+require_relative '../lib/player.rb'
+
 player1_name = ''
 player2_name = ''
 answer = ''

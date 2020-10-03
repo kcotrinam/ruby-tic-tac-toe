@@ -26,6 +26,10 @@ Welcome to our project "Object Oriented Programming: Ruby-Tic-Tac-Toe". The purp
 - Install the dependencies by typing in `bundle install` (you should already have bundler installed) in the command line.
 - Run the project by typing in: `./main.rb` in the command line.
 
+### :memo: Test
+- Click on the console and type `gem install rspec` then press enter to begin the instalation process
+- run `rspec spec/file_name_spec.rb`
+- You can see the test files by clicking on the left panel spec/<board_spec.rb> or <player_spec.rb>
 
 ## :bust_in_silhouette: Authors
 
